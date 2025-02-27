@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:globalchat/screens/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -13,6 +14,20 @@ class _SignupScreenState extends State<SignupScreen> {
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+
+  void createAccount() async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email.text, password: password.text);
+
+      print("Account Created Successfully");
+    } catch (e) {
+      SnackBar messageSnackbar =
+          SnackBar(backgroundColor: Colors.red, content: Text(e.toString()));
+
+      ScaffoldMessenger.of(context).showSnackBar(messageSnackbar);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +70,9 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    if (userForm.currentState!.validate()) {}
-
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return LoginScreen();
-                    }));
+                    if (userForm.currentState!.validate()) {
+                      createAccount();
+                    }
                   },
                   child: Text("Create Account"))
             ],

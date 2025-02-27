@@ -21,12 +21,11 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          brightness: Brightness.dark,
-          fontFamily: "Poppins",
-          useMaterial3: true),
-      home: SplashScreen()
-    );
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            brightness: Brightness.light,
+            fontFamily: "Poppins",
+            useMaterial3: true),
+        home: SplashScreen());
   }
 }
