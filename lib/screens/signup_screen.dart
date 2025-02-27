@@ -73,9 +73,6 @@ class _SignupScreenState extends State<SignupScreen> {
                             return "Name is required ";
                           }
                         },
-                        obscureText: true,
-                        enableSuggestions: true,
-                        autocorrect: false,
                         decoration: InputDecoration(label: Text("Name")),
                       ),
                       SizedBox(
@@ -89,9 +86,6 @@ class _SignupScreenState extends State<SignupScreen> {
                             return "Password is required ";
                           }
                         },
-                        obscureText: true,
-                        enableSuggestions: true,
-                        autocorrect: false,
                         decoration: InputDecoration(label: Text("country")),
                       ),
                       SizedBox(
