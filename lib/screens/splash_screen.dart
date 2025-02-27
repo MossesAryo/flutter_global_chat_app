@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void openDashboard() {
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-      return DashboardScreen();
+      return LoginScreen();
     }));
   }
 

@@ -20,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Text("Dont have an account?"),
           ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacement(context,
+                Navigator.push(context,
                     MaterialPageRoute(builder: (context) {
                   return SignupScreen();
                 }));
