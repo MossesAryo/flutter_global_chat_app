@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:globalchat/screens/profile_screen.dart';
 import 'package:globalchat/screens/splash_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -18,13 +19,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appBar: AppBar(
         title: const Text('Dashboard'),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Text("Welcome,"),
-            Text((user?.email ?? "").toString()),
-            ElevatedButton(
-                onPressed: () async {
+      drawer: Drawer(
+        child: Container(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 50,
+              ),
+              ListTile(
+                leading: Icon(Icons.people),
+                title: Text("Profile"),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return ProfileScreen();
+                    }),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text("Logout"),
+                onTap: () async {
                   await FirebaseAuth.instance.signOut();
 
                   Navigator.pushAndRemoveUntil(context,
@@ -34,7 +51,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     return false;
                   });
                 },
-                child: Text("logout"))
+              )
+            ],
+          ),
+        ),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Text("Welcome,"),
+            Text((user?.email ?? "").toString()),
           ],
         ),
       ),
