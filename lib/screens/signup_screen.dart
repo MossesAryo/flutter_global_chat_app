@@ -21,7 +21,7 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up'),
+        title: Text(""),
       ),
       body: Form(
         key: userForm,
@@ -29,6 +29,7 @@ class _SignupScreenState extends State<SignupScreen> {
           padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
+              SizedBox(child: Image.asset("assets/images/logo.png")),
               TextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: email,
@@ -58,16 +59,26 @@ class _SignupScreenState extends State<SignupScreen> {
               SizedBox(
                 height: 23,
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    if (userForm.currentState!.validate()) {
-                      SignupController.createAccount(
-                          context: context,
-                          email: email.text,
-                          password: password.text);
-                    }
-                  },
-                  child: Text("Create Account"))
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: Size(0, 50),
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.blue),
+                        onPressed: () {
+                          if (userForm.currentState!.validate()) {
+                            SignupController.createAccount(
+                                context: context,
+                                email: email.text,
+                                password: password.text);
+                          }
+                        },
+                        child: Text("Create Account")),
+                  ),
+                ],
+              )
             ],
           ),
         ),
