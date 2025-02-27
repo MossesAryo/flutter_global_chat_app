@@ -20,10 +20,18 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+          brightness: Brightness.dark,
+          fontFamily: "Poppins",
+          useMaterial3: true),
       home: Scaffold(
-          appBar: AppBar(
-        title: Text('Global Chat'),
-      )),
+        appBar: AppBar(
+          title: Text('Global Chat'),
+        ),
+        body: Center(
+          child: Text("Firebase looking fine"),
+        ),
+      ),
     );
   }
 }
