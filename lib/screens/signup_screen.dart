@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:globalchat/screens/dashboard_screen.dart';
 import 'package:globalchat/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -19,6 +20,13 @@ class _SignupScreenState extends State<SignupScreen> {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email.text, password: password.text);
+
+      Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (context) {
+        return DashboardScreen();
+      }), (route) {
+        return false;
+      });
 
       print("Account Created Successfully");
     } catch (e) {
@@ -42,6 +50,7 @@ class _SignupScreenState extends State<SignupScreen> {
           child: Column(
             children: [
               TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: email,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -55,6 +64,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               TextFormField(
                 controller: password,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "Password is required ";

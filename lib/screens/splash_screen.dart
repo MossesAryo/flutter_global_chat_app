@@ -13,7 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(Duration(seconds: 5), () {
-      openDashboard();
+      openLogin();
     });
 
     // TODO: implement initState
@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void openDashboard() {
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-      return LoginScreen();
+      return DashboardScreen();
     }));
   }
 
