@@ -43,9 +43,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Global Chat'),
-          leading: CircleAvatar(
-                    child: Text(userProvider.userName[0]),
-                  ),
+          leading: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: CircleAvatar(
+              radius: 20,
+              child: Text(userProvider.userName[0]),
+            ),
+          ),
         ),
         drawer: Drawer(
           child: Container(
@@ -109,7 +113,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
               return ListTile(
                 leading: CircleAvatar(
-                  child: Text(chatroomName[0]),
+                  backgroundColor: Colors.blueGrey[900],
+                  child: Text(
+                    chatroomName[0],
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
                 title: Text(chatroomName),
                 subtitle: Text(chatroomsList[index]["chatroom_name"] ?? ""),
