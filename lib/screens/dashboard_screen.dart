@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:globalchat/providers/userProvider.dart';
 import 'package:globalchat/screens/profile_screen.dart';
 import 'package:globalchat/screens/splash_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -36,9 +38,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var userProvider = Provider.of<UserProvider>(context);
+
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Dashboard'),
+          title: const Text('Global Chat'),
         ),
         drawer: Drawer(
           child: Container(
@@ -46,6 +50,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
                 SizedBox(
                   height: 50,
+                ),
+                ListTile(
+                  leading: CircleAvatar(
+                    child: Text(userProvider.userName[0]),
+                  ),
+                  title: Text(
+                    userProvider.userName,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(userProvider.userEmail),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return ProfileScreen();
+                      }),
+                    );
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.people),
