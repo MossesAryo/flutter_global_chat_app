@@ -43,6 +43,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Global Chat'),
+          leading: CircleAvatar(
+                    child: Text(userProvider.userName[0]),
+                  ),
         ),
         drawer: Drawer(
           child: Container(
