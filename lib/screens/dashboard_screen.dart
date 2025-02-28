@@ -16,6 +16,7 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   var user = FirebaseAuth.instance.currentUser;
   var db = FirebaseFirestore.instance;
+  var scaffoldkey = GlobalKey<ScaffoldState>();
 
   List<Map<String, dynamic>> chatroomsList = [];
 
@@ -41,13 +42,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
     var userProvider = Provider.of<UserProvider>(context);
 
     return Scaffold(
+        key: scaffoldkey,
         appBar: AppBar(
           title: const Text('Global Chat'),
-          leading: Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: CircleAvatar(
-              radius: 20,
-              child: Text(userProvider.userName[0]),
+          leading: InkWell(
+            onTap: () {
+              scaffoldkey.currentState!.openDrawer();
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: CircleAvatar(
+                radius: 20,
+                child: Text(userProvider.userName[0]),
+              ),
             ),
           ),
         ),
