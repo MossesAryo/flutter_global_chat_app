@@ -18,6 +18,22 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
       appBar: AppBar(
         title: Text(widget.chatroomName),
       ),
+      body: Column(
+        children: [
+          Expanded(
+              child: Container(
+            color: Colors.red,
+          )),
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [Expanded(child: TextField()), Icon(Icons.send)],
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
