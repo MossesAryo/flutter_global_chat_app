@@ -13,41 +13,58 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  var user = FirebaseAuth.instance.currentUser;
-
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3), () {
-      if (user == null) {
-        openLogin();
-      } else {
-        openDashboard();
-      }
-    });
-
-    // TODO: implement initState
     super.initState();
+    _navigateToNextScreen();
   }
 
-  void openDashboard() {
-    Provider.of<UserProvider>(context,listen: false).getUserDetails();
+  Future<void> _navigateToNextScreen() async {
+    await Future.delayed(const Duration(seconds: 3));
 
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-      return DashboardScreen();
-    }));
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      _openLogin();
+    } else {
+      _openDashboard();
+    }
   }
 
-  void openLogin() {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-      return LoginScreen();
-    }));
+  void _openDashboard() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<UserProvider>(context, listen: false).getUserDetails();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const DashboardScreen()),
+      );
+    });
+  }
+
+  void _openLogin() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
-        child: SizedBox(child: Image.asset("assets/images/logo.png")),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image(
+              image: AssetImage("assets/images/logo.png"),
+              width: 150,
+            ),
+            SizedBox(height: 20),
+            CircularProgressIndicator(),
+          ],
+        ),
       ),
     );
   }

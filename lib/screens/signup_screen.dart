@@ -9,127 +9,151 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  var userForm = GlobalKey<FormState>();
+  final GlobalKey<FormState> userForm = GlobalKey<FormState>();
 
   bool isLoading = false;
 
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController name = TextEditingController();
-  TextEditingController country = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
+  final TextEditingController name = TextEditingController();
+  final TextEditingController country = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(""),
+        title: const Text("Create Account"),
+        centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Form(
-                key: userForm,
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    children: [
-                      SizedBox(child: Image.asset("assets/images/logo.png")),
-                      TextFormField(
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: email,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Email is required ";
-                          }
-                        },
-                        decoration: InputDecoration(label: Text("Email")),
-                      ),
-                      SizedBox(
-                        height: 23,
-                      ),
-                      TextFormField(
-                        controller: password,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Password is required ";
-                          }
-                        },
-                        obscureText: true,
-                        enableSuggestions: true,
-                        autocorrect: false,
-                        decoration: InputDecoration(label: Text("Password")),
-                      ),
-                      SizedBox(
-                        height: 23,
-                      ),
-                      TextFormField(
-                        controller: name,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Name is required ";
-                          }
-                        },
-                        decoration: InputDecoration(label: Text("Name")),
-                      ),
-                      SizedBox(
-                        height: 23,
-                      ),
-                      TextFormField(
-                        controller: country,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Password is required ";
-                          }
-                        },
-                        decoration: InputDecoration(label: Text("country")),
-                      ),
-                      SizedBox(
-                        height: 23,
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    minimumSize: Size(0, 50),
-                                    foregroundColor: Colors.white,
-                                    backgroundColor: Colors.blue),
-                                onPressed: () async {
-                                  if (userForm.currentState!.validate()) {
-                                    isLoading = true;
-                                    setState(() {});
-                                    await SignupController.createAccount(
-                                        context: context,
-                                        email: email.text,
-                                        password: password.text,
-                                        name: name.text,
-                                        country: country.text);
-                                    isLoading = false;
-                                    setState(() {});
-                                  }
-                                },
-                                child: isLoading
-                                    ? Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: CircularProgressIndicator(
-                                          color: Colors.white,
-                                        ),
-                                      )
-                                    : Text("Create Account")),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+        child: Form(
+          key: userForm,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(child: Image.asset("assets/images/logo.png", width: 120)),
+              const SizedBox(height: 30),
+              Text(
+                "Sign up to get started!",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
+              TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                controller: name,
+                decoration: InputDecoration(
+                  labelText: "Full Name",
+                  prefixIcon: Icon(Icons.person_outline),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Name is required";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20),
+              TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                controller: email,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                  labelText: "Email",
+                  prefixIcon: Icon(Icons.email_outlined),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Email is required";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: password,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: "Password",
+                  prefixIcon: Icon(Icons.lock_outline),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Password is required";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: country,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  labelText: "Country",
+                  prefixIcon: Icon(Icons.flag_outlined),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Country is required";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 30),
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  onPressed: () async {
+                    if (userForm.currentState!.validate()) {
+                      setState(() => isLoading = true);
+
+                      await SignupController.createAccount(
+                        context: context,
+                        email: email.text,
+                        password: password.text,
+                        name: name.text,
+                        country: country.text,
+                      );
+
+                      setState(() => isLoading = false);
+                    }
+                  },
+                  child: AnimatedSwitcher(
+                    duration: Duration(milliseconds: 300),
+                    child: isLoading
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : const Text(
+                            "Create Account",
+                            style: TextStyle(fontSize: 16, color: Colors.white),
                           ),
-                        ],
-                      )
-                    ],
                   ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
