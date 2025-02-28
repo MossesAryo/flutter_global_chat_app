@@ -25,13 +25,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   void updateData() {
-  Map<String, dynamic>? dataToUpdate = {
+    Map<String, dynamic>? dataToUpdate = {"name": nameText.text};
 
-    "name":nameText.text
-  };
+    db
+        .collection("users")
+        .doc(Provider.of<UserProvider>(context, listen: false).userId)
+        .update(dataToUpdate);
 
-
-    db.collection("users").doc(Provider.of<UserProvider>(context,listen: false).userId).update(dataToUpdate);
+    Provider.of<UserProvider>(context, listen: false).getUserDetails();
+    Navigator.pop(context);
   }
 
   @override
