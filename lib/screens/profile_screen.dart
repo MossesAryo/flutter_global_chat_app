@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:globalchat/screens/edit_profile_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:globalchat/providers/userProvider.dart';
 
@@ -62,7 +63,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return EditProfileScreen();
+                  }));
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   padding: const EdgeInsets.symmetric(vertical: 12),
