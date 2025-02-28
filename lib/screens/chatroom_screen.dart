@@ -22,13 +22,22 @@ class _ChatroomScreenState extends State<ChatroomScreen> {
         children: [
           Expanded(
               child: Container(
-            color: Colors.red,
+            color: Colors.white,
           )),
           Container(
+            color: Colors.grey[200],
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
-                children: [Expanded(child: TextField()), Icon(Icons.send)],
+                children: [
+                  Expanded(
+                      child: TextField(
+                    decoration: InputDecoration(
+                        hintText: "Write Message Here...",
+                        border: InputBorder.none),
+                  )),
+                  Icon(Icons.send)
+                ],
               ),
             ),
           )
