@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:globalchat/screens/dashboard_screen.dart';
+
 import 'package:globalchat/screens/splash_screen.dart';
 
 class LoginController {
@@ -19,7 +19,7 @@ class LoginController {
         return false;
       });
 
-      print("Account Created Successfully");
+      
     } catch (e) {
       SnackBar messageSnackbar =
           SnackBar(backgroundColor: Colors.red, content: Text(e.toString()));
